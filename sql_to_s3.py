@@ -40,7 +40,9 @@ def main():
     # Iterate through data chunks
     for chunk in data_generator(conn_string, query):
         year = chunk['your_date_column'].dt.year.unique()[0]
-        s3_path = f"path/to/destination/year={year}/data.parquet"
+        month = chunk['your_date_column'].dt.month.unique()[0]
+        day = chunk['your_date_column'].dt.day.unique()[0]
+        s3_path = f"path/to/destination/year={year}/month={month}/day={day}/data.parquet"
         
         upload_to_s3(chunk, 'your_s3_bucket', s3_path)
 
